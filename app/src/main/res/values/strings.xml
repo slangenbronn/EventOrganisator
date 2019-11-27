@@ -23,7 +23,14 @@
     <string name="login_failed">"Login failed"</string>
     <string name="register">"Register"</string>
     <string name="Name">"Name"</string>
+    <string name="logout">"Logout"</string>
+    <string name="event">"Events"</string>
+    <string name="account">"My account"</string>
+    <string name="event_creation">"Add event"</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="register_fragment">Register</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
