@@ -3,6 +3,7 @@ package com.example.eventorganisator.ui.Login.ui.login;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,7 +18,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.eventorganisator.MainActivity;
+import com.example.eventorganisator.MyApplication;
 import com.example.eventorganisator.R;
+import com.example.eventorganisator.domain.User;
+
+import java.util.List;
 
 public class LoginFragment extends Fragment {
 
@@ -45,14 +51,33 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean userFound = false;
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+                List<User> userList = MyApplication.getUserList();
                 if(username != "" && password != "" && password.length() > 5){
+                    for(int i = 0; i < userList.size(); i++){
+                        User u = userList.get(i);
+                        if(u.getName().equals(username) && u.getPassword().equals(password)){
+                            Intent intent = new Intent(getContext().getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                            userFound = true;
+                        }
+                    }
 
+                    if(!userFound){
+                        Context context = getActivity().getApplicationContext();
+                        String error_message = "Combinaison login/mot de passe incorrect";
+                        int duration = Toast.LENGTH_LONG;
+
+                        Toast toast = Toast.makeText(context, error_message, duration);
+                        toast.show();
+                    }
                 }
                 else{
                     Context context = getActivity().getApplicationContext();
-                    String error_message = "login/mot de passe pas correct (mot de passe > 5)";
+                    String error_message = "login/mot de passe incorrect (mot de passe > 5)";
                     int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, error_message, duration);
